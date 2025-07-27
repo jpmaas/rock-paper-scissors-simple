@@ -6,6 +6,10 @@ import de.janpascalmaas.domain.Player;
 import de.janpascalmaas.domain.round.Round;
 import de.janpascalmaas.domain.round.RoundResult;
 
+/**
+ * Service class to handle console output for the game of rock paper scissors.
+ * This class is responsible for printing the flow of the game after it has been played.
+ */
 public final class ConsoleOutputService {
 
     public void printGame(Game game) {
@@ -17,6 +21,13 @@ public final class ConsoleOutputService {
         printGameResult(game);
     }
 
+    /**
+     * Prints the start of the game with player names and strategies.
+     *
+     * @param player1 the first player
+     * @param player2 the second player
+     * @param numberOfRounds the number of rounds in the game
+     */
     private void printGameStart(Player player1, Player player2, int numberOfRounds) {
         System.out.println("Game started for " + numberOfRounds + " with players: ");
         System.out.println(" - " + player1.getName() + " using Strategy: " + player1.getStrategy().getStrategyName());
@@ -24,6 +35,11 @@ public final class ConsoleOutputService {
         System.out.println("=========================================================================================");
     }
 
+    /**
+     * Prints the details of a round that has been played.
+     *
+     * @param round the round that has been played
+     */
     private void printRound(Round round) {
         System.out.println("Round " + round.getRoundNumber() + " finished: ");
         System.out.println(" - " + round.getPlayer1().getName() + " played " + round.getPlayer1Shape().getType());
@@ -36,6 +52,11 @@ public final class ConsoleOutputService {
         System.out.println("=========================================================================================");
     }
 
+    /**
+     * Prints the overall result of the game with all rounds of the game played.
+     *
+     * @param game the game that has been played
+     */
     private void printGameResult(Game game) {
         System.out.println("=========================================================================================");
         System.out.println("Overall Game Result: ");

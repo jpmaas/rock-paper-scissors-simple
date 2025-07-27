@@ -6,6 +6,12 @@ import de.janpascalmaas.domain.round.RoundResult.Outcome;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Domain class to represent a game of rock paper scissors. This is the root of the domain model handling the game
+ * logic.
+ * A game consists of two players, a number of rounds, and the winner of the game. All rounds that are played in the
+ * game will be added on the fly. The game can be built using the Builder pattern.
+ */
 public final class Game {
 
     private final Player player1;
@@ -41,6 +47,12 @@ public final class Game {
         this.rounds.addAll(rounds);
     }
 
+    /**
+     * Builder constructor to create a game with two players and a number of rounds. It will play the game on creation.
+     * @param numberOfRounds the number of rounds in the game
+     * @param player1 the first player
+     * @param player2 the second player
+     */
     private Game(final int numberOfRounds, final Player player1, final Player player2) {
         this.numberOfRounds = numberOfRounds;
         this.player1 = player1;
@@ -53,10 +65,18 @@ public final class Game {
     }
 
     public Player getPlayer1() {
+        // validate that the player is set to ensure the testing constructor is never used at runtime
+        if (player1 == null) {
+            throw new IllegalStateException("Player 1 is not set");
+        }
         return player1;
     }
 
     public Player getPlayer2() {
+        // validate that the player is set to ensure the testing constructor is never used at runtime
+        if (player2 == null) {
+            throw new IllegalStateException("Player 2 is not set");
+        }
         return player2;
     }
 
@@ -90,6 +110,13 @@ public final class Game {
         winner = determineWinner(player1, player2);
     }
 
+    /**
+     * Determines the winner of the game based on the scores of the players.
+     * The method is package-private for testing purposes only.
+     * @param player1 the first player of the game
+     * @param player2 the second player of the game
+     * @return the player with the higher score, or null if both players have the same score
+     */
     Player determineWinner(Player player1, Player player2) {
         if (player1.getScore() > player2.getScore()) {
             return player1;
@@ -100,6 +127,12 @@ public final class Game {
         return null;
     }
 
+    /**
+     * Builder class to create a Game instance.
+     * The builder ensures that the game is valid and that all required fields are properly set before the Game
+     * instance is created. When the game is built executing the method `play()`, the game will be played out and the
+     * object built will contain all information of the game.
+     */
     public static class Builder {
         private int numberOfRounds;
 

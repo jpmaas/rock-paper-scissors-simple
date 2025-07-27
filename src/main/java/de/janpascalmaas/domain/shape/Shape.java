@@ -4,8 +4,15 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Domain class to represent a shape in the game rock paper scissors.
+ * A shape is represented by its type (ROCK, PAPER, SCISSORS) and can determine if it beats another shape.
+ */
 public final class Shape {
 
+    /**
+     * Map defining which shapes beat which other shapes.
+     */
     private static final Map<ShapeType, Set<ShapeType>> BEATS = Map.of(
             ShapeType.ROCK, Set.of(ShapeType.SCISSORS),
             ShapeType.PAPER, Set.of(ShapeType.ROCK),

@@ -3,8 +3,6 @@ package de.janpascalmaas.domain;
 import de.janpascalmaas.domain.shape.Shape;
 import de.janpascalmaas.domain.strategy.PlayerStrategy;
 
-import java.util.Objects;
-
 public final class Player {
 
     private final PlayerStrategy strategy;
@@ -57,6 +55,12 @@ public final class Player {
         }
 
         public Player build() {
+            if (strategy == null) {
+                throw new IllegalStateException("Player strategy must not be null");
+            }
+            if (name == null || name.isBlank()) {
+                throw new IllegalStateException("Player name must not be null or blank");
+            }
             return new Player(strategy, name);
         }
     }

@@ -6,6 +6,12 @@ import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+/**
+ * A strategy for a player that selects one of the provided shapes based on a randomizing function. By default, it uses
+ * `Math.random()` to generate a random double between 0.0 (inclusive) and 1.0 (exclusive) to select a shape from a list
+ * of shapes.
+ * The strategy is immutable.
+ */
 public final class RandomStrategy implements PlayerStrategy {
 
     private final List<Shape> shapes;
@@ -38,6 +44,7 @@ public final class RandomStrategy implements PlayerStrategy {
 
     @Override
     public String getStrategyName() {
-        return "Random Strategy with shapes: " + shapes.stream().map(shape -> shape.getType().name()).collect(Collectors.joining(","));
+        return "Random Strategy with shapes: "
+                + shapes.stream().map(shape -> shape.getType().name()).collect(Collectors.joining(","));
     }
 }

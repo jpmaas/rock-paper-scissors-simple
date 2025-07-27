@@ -3,26 +3,31 @@ package de.janpascalmaas.domain.round;
 import de.janpascalmaas.domain.Player;
 import de.janpascalmaas.domain.shape.Shape;
 
-import java.util.Objects;
-
+/**
+ * Domain class to represent a round in the game rock paper scissors.
+ * A round is represented by its number in the game, two players, their shapes, and the result of the round.
+ * The round is immutable and can be built using the Builder pattern.
+ */
 public final class Round {
 
     private final int roundNumber;
 
     private final Player player1;
 
-    private Shape player1Shape;
+    private final Shape player1Shape;
 
     private final Player player2;
 
-    private Shape player2Shape;
+    private final Shape player2Shape;
 
     private final RoundResult roundResult;
 
     private Round(int roundNumber, Player player1, Player player2) {
         this.roundNumber = roundNumber;
         this.player1 = player1;
+        this.player1Shape = player1.getNextShape();
         this.player2 = player2;
+        this.player2Shape = player2.getNextShape();
         this.roundResult = calculateRoundResult();
     }
 
@@ -31,10 +36,6 @@ public final class Round {
     }
 
     private RoundResult calculateRoundResult() {
-        Shape player1Shape = player1.getNextShape();
-        this.player1Shape = player1Shape;
-        Shape player2Shape = player2.getNextShape();
-        this.player2Shape = player2Shape;
         if (player1Shape.beats(player2Shape)) {
             player1.incrementScore();
             return new RoundResult(RoundResult.Outcome.WIN, player1);
@@ -45,8 +46,6 @@ public final class Round {
         }
         return new RoundResult(RoundResult.Outcome.DRAW, null);
     }
-
-
 
     public int getRoundNumber() {
         return roundNumber;
@@ -72,6 +71,11 @@ public final class Round {
         return roundResult;
     }
 
+    /**
+     * Builder class to create a Round instance.
+     * The builder ensures that the round is valid and that all required fields are properly set before the Round
+     * instance is created.
+     */
     public static class Builder {
         private int roundNumber; // Default to an invalid state
 

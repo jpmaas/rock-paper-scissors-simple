@@ -2,8 +2,11 @@ package de.janpascalmaas.domain.round;
 
 import de.janpascalmaas.domain.Player;
 
-import java.util.Objects;
-
+/**
+ * Domain class to represent the result of a round in the game rock paper scissors.
+ * A round result is represented by its outcome (WIN or DRAW) and the winner of the round.
+ * The round result is immutable.
+ */
 public final class RoundResult {
 
     private final Outcome outcome;
